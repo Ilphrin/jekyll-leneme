@@ -1,0 +1,23 @@
+---
+layout: default
+title: "Hey I am Lena"
+subtitle: "Welcome to my home"
+cover: "background.jpg"
+socialMedia: true
+---
+
+{% assign categories = site.categories | sort %}
+{% for category in categories %}
+  <h2>{{category[0] | capitalize}}</h2>
+  <div class="postGroup">
+    {% for post in category[1] %}
+      <a class="post" href="{{post.url}}">
+        <h3>{{post.title}}</h3>
+        <div class="postExcerpt">
+          {{ post.excerpt | strip_html }}
+        </div>
+        <date>{{post.date | date: '%d/%b/%Y'}}</date>
+      </a>
+    {% endfor %}
+  </div>
+{% endfor %}

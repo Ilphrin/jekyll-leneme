@@ -1,0 +1,43 @@
+---
+layout: default
+socialMedia: {{ page.socialMedia | default: 'true' }}
+title: {{page.title}}
+date: {{page.date}}
+subtitle: {{page.subtitle}}
+categories: {{page.categories}}
+cover: {{ page.cover }}
+---
+
+<div id="postContent">
+  {{ content }}
+</div>
+
+{% assign previous = page.previous.url %}
+{% assign next = page.next.url %}
+
+{% if next or previous %}
+  <h2>A lire aussi</h2>
+  <div class="postGroup">
+    {% if next %}
+      <a class="post" href="{{page.next.url}}">
+        <h3>{{page.next.title}}</h3>
+        <div class="postExcerpt">
+          {{page.next.excerpt | strip_html}}
+        </div>
+        <date>{{page.next.date | date: '%d/%b/%Y'}}</date>
+      </a>
+    {% endif %}
+    {% if previous %}
+      <a class="post" href="{{page.previous.url}}">
+        <h3>{{page.previous.title}}</h3>
+        <div class="postExcerpt">
+          {{page.previous.excerpt | strip_html}}
+        </div>
+        <date>{{page.previous.date | date: '%d/%b/%Y'}}</date>
+      </a>
+    {% endif %}
+  </div>
+{% endif %}
+
+
+<a id="goBack" href="/">Revenir en arrière</a>

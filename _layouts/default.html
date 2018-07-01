@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang={{site.lang}}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
+  <meta name="author" content="{{ site.author }}">
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="icon" href="/favicon.png"/>
+  <link rel="sitemap" src="/sitemap.xml">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-weight: normal;
+    }
+    @-webkit-keyframes fadeout {
+      0% {
+        visibility:visible;
+        opacity:1
+      }
+      30% {
+        opacity:1
+      }
+      100% {
+        opacity:0;
+        visibility:hidden
+      }
+    }
+    @keyframes fadeout {
+      0% {
+        visibility:visible;
+        opacity:1
+      }
+      30% {
+        opacity:1
+      }
+      100% {
+        opacity:0;
+        visibility:hidden
+      }
+    }
+    @font-face {
+      font-family:Rosarivo;
+      src:url(/fonts/rosarivo/Rosarivo-Regular.ttf) format("truetype")
+    }
+    @font-face {
+      font-family:Rosarivo-Italic;
+      src:url(/fonts/rosarivo/Rosarivo-Italic.ttf) format("truetype")
+    }
+    @font-face {
+      font-family:Satisfy;
+      src:url(/fonts/Satisfy/Satisfy-Regular.ttf) format("truetype")
+    }
+    body {
+      font-family:Rosarivo;
+      font-size:14px;
+    }
+    body #coverBackground {
+      position:fixed;
+      top:0;
+      left:0;
+      width:35%;
+      height:100vh;
+      overflow:hidden;
+    }
+    header p, h3 {
+      font-family: Satisfy;
+    }
+    h1 {
+      font-size: 64px;
+      line-height: 64px;
+      position: relative;
+      z-index: 1000;
+    }
+    #siteContent {
+      width:65%;
+      float:right;
+      padding:6%;
+      padding-top:2%;
+      min-height:100vh
+    }
+    #overlay {
+      width:100%;
+      height:100vh;
+      background-color:#fff;
+      position:fixed;
+      z-index:500;
+    }
+  </style>
+  <script>
+    !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function l(){d.addEventListener&&d.removeEventListener("load",l),d.media=r||"all"}var a,i=e.document,d=i.createElement("link");if(n)a=n;else{var s=(i.body||i.getElementsByTagName("head")[0]).childNodes;a=s[s.length-1]}var u=i.styleSheets;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){a.parentNode.insertBefore(d,n?a:a.nextSibling)});var f=function(e){for(var t=d.href,n=u.length;n--;)if(u[n].href===t)return e();setTimeout(function(){f(e)})};return d.addEventListener&&d.addEventListener("load",l),d.onloadcssdefined=f,f(l),d};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this),function(e){if(e.loadCSS){var t=loadCSS.relpreload={};if(t.support=function(){try{return e.document.createElement("link").relList.supports("preload")}catch(t){}},t.poly=function(){for(var t=e.document.getElementsByTagName("link"),n=0;n<t.length;n++){var r=t[n];"preload"===r.rel&&"style"===r.getAttribute("as")&&(e.loadCSS(r.href,r),r.rel=null)}},!t.support()){t.poly();var n=e.setInterval(t.poly,300);e.addEventListener&&e.addEventListener("load",function(){e.clearInterval(n)})}}}(this);
+loadCSS('/assets/styles/main.css');
+  </script>
+</head>
+
+<body itemscope itemtype="https://schema.org/Blog">
+  <div id="overlay"></div>
+  <div id="coverBackground">
+    <img src="/assets/img/{{page.cover | default: 'placeholder.jpg' }}"/>
+  </div>
+  <div id="siteContent">
+    <header>
+      <h1 itemprop="name">{{page.title}}</h1>
+      <p>{{page.subtitle}}</p>
+      {% if page.socialMedia != false %}
+        <div id="socialMedia">
+          {% if site.flickr_user %}
+            <a id="flickr" title="Follow me on Flickr!" href="https://flickr.com/{{ site.flickr_user }}">
+              <img src="/assets/img/flickr.png" />
+            </a>
+          {% endif %}
+          {% if site.instagram_user %}
+            <a id="instagram" title="Check out my Instagram!" href="https://instagram.com/{{ site.instagram_user }}">
+              <img src="/assets/img/instagram.png" />
+            </a>
+          {% endif %}
+          {% if site.twitter_user %}
+            <a id="twitter" title="Follow me on twitter!" href="https://twitter.com/{{ site.twitter_user }}">
+              <img src="/assets/img/twitter.png" />
+            </a>
+          {% endif %}
+          {% if site.facebook_user %}
+            <a id="facebook" title="Lets talk on Facebook!" href="https://facebook.com/{{ site.facebook_user }}">
+              <img src="/assets/img/facebook.png" />
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+      <date itemprop="datePublished">{{page.date | date: "%d %b %Y"}}</date>
+    </header>
+
+    <article itemscope itemtype="http://schema.org/Article">
+      {{ content }}
+    </article>
+  </div>
+
+  
+  <footer>
+    Jekyll Theme by Kevin Ilphrin
+  </footer>
+  <noscript>
+    <link href="/assets/styles/main.css" rel="stylesheet" type="text/css">
+  </noscript>
+</body>
+</html>
